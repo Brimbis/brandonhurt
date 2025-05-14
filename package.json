@@ -2,7 +2,7 @@
   "name": "professional-webpage",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://brimbis.github.io/brimbis.github.io",
+  "homepage": "https://github.com/Brimbis/brimbis.github.io",
   "type": "module",
   "scripts": {
     "dev": "vite",
