@@ -2,7 +2,7 @@
   "name": "professional-webpage",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://brimbis.github.io/",
+  "homepage": "https://brimbis.github.io/brimbis.github.io",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.15",

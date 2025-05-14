@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "https://brimbis.github.io/src/main.jsx",
+  base: "/brimbis.github.io/", 
 })
