@@ -2,12 +2,13 @@ import {useState, useEffect} from 'react';
 import '../styles/App.css';
 import LoadingBar from '../components/LoadingBar';
 import Logo from '../components/Logo';
+import useSWR from 'swr';
 import axios from 'axios';
 
+const fetcher = url => axios.get(url).then(res => res.data);
+
 export default function ContactInfo() {
-  const [loading, setLoading] = useState(true);
-  const [hasTimedOut, setHasTimedOut] = useState(false);
-  const [info, setInfo] = useState('');
+  const { data: info, error } = useSWR('/api/info', fetcher);
 
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ export default function ContactInfo() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/messages', formData)
+    axios.post('/api/messages', formData)
     .then(() => {
       setFormData({name: "", email: "", message: ""});
       setSubmitted(true);
@@ -33,35 +34,8 @@ export default function ContactInfo() {
     .catch(err => console.error('Error sending the message: ', err));
   };
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setHasTimedOut(true);
-    }, 1000);
-
-    axios.get('http://localhost:5000/info')
-      .then(res => {
-        clearTimeout(timeout);
-        setInfo(res.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        clearTimeout(timeout);
-        console.error('Error fetching contact:', err);
-        setLoading(false);
-    });
-  }, []);
-
-  if (loading && !hasTimedOut) {
-    return (
-      <LoadingBar type='loading'/>
-    );
-  } 
-
-  if (hasTimedOut || !info) {
-    return (
-      <LoadingBar type='failed'/>
-    );
-  }
+  if (!info) return <LoadingBar type="loading" />;
+  if (error) return <LoadingBar type="failed" />;
 
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">

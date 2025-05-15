@@ -3,42 +3,16 @@ import '../styles/App.css';
 import Logo from '../components/Logo.jsx';
 import Card from '../components/Card.jsx';
 import LoadingBar from '../components/LoadingBar.jsx';
+import useSWR from 'swr';
 import axios from 'axios';
 
+const fetcher = url => axios.get(url).then(res => res.data);
+
 export default function AboutMe() {
-  const [loading, setLoading] = useState(true);
-  const [hasTimedOut, setHasTimedOut] = useState(false);
-  const [info, setInfo] = useState('');
+  const { data: info, error } = useSWR('/api/info', fetcher);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setHasTimedOut(true);
-    }, 1000);
-
-    axios.get('http://localhost:5000/info')
-      .then(res => {
-        clearTimeout(timeout);
-        setInfo(res.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        clearTimeout(timeout);
-        console.error('Error fetching info:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading && !hasTimedOut) {
-    return (
-      <LoadingBar type='loading'/>
-    );
-  }
-
-  if (hasTimedOut || !info) {
-    return (
-      <LoadingBar type='failed'/>
-    );
-  }
+  if (!info) return <LoadingBar type="loading" />;
+  if (error) return <LoadingBar type="failed" />;
 
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">

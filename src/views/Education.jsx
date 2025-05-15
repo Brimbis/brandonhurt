@@ -2,43 +2,16 @@ import {useState, useEffect} from 'react';
 import '../styles/App.css';
 import LoadingBar from '../components/LoadingBar';
 import Card from '../components/Card';
+import useSWR from 'swr';
 import axios from 'axios';
 
+const fetcher = url => axios.get(url).then(res => res.data);
+
 export default function Education() {
-  const [loading, setLoading] = useState(true);
-  const [hasTimedOut, setHasTimedOut] = useState(false);
-  const [education, setEducation] = useState('');
+  const { data: education, error } = useSWR('/api/education', fetcher);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setHasTimedOut(true);
-    }, 1000);
-
-    axios.get('http://localhost:5000/education')
-    .then(res => {
-      clearTimeout(timeout);
-      const sortedEducation = res.data.sort((a, b) => new Date(b.date) - new Date(a.date));
-      setEducation(sortedEducation);
-      setLoading(false);
-    })
-    .catch(err => {
-      clearTimeout(timeout);
-      console.error('Error fetching education:', err);
-      setLoading(false);
-    });
-  }, []);
-
-    if (loading && !hasTimedOut) {
-      return (
-        <LoadingBar type='loading'/>
-      );
-    } 
-
-    if (hasTimedOut || !education) {
-      return (
-        <LoadingBar type='failed'/>
-      );
-    }
+  if (!education) return <LoadingBar type="loading" />;
+  if (error) return <LoadingBar type="failed" />;
 
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">

@@ -2,42 +2,16 @@ import {useState, useEffect} from 'react';
 import '../styles/App.css';
 import LoadingBar from '../components/LoadingBar';
 import Card from '../components/Card';
+import useSWR from 'swr';
 import axios from 'axios';
 
+const fetcher = url => axios.get(url).then(res => res.data);
+
 export default function Skills() {
-  const [loading, setLoading] = useState(true);
-  const [hasTimedOut, setHasTimedOut] = useState(false);
-  const [skills, setSkills] = useState('');
+  const { data: skills, error } = useSWR('/api/skills', fetcher);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setHasTimedOut(true);
-    }, 1000);
-
-    axios.get('http://localhost:5000/skills')
-    .then(res => {
-      clearTimeout(timeout);
-      setSkills(res.data);
-      setLoading(false);
-    })
-    .catch(err => {
-      clearTimeout(timeout);
-      console.error('Error fetching skills:', err);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading && !hasTimedOut) {
-    return (
-      <LoadingBar type='loading'/>
-    );
-  } 
-
-  if (hasTimedOut || !skills) {
-    return (
-      <LoadingBar type='failed'/>
-    );
-  }
+  if (!skills) return <LoadingBar type="loading" />;
+  if (error) return <LoadingBar type="failed" />;
 
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">
