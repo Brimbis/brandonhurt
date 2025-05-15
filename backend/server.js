@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const PORT = 5000;
@@ -12,7 +13,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 
-mongoose.connect('mongodb://localhost:27017/profile_db', {
+mongoose.connect(process.env.CONNECTION_STRING, {
   useNewUrlParser: true, 
   useUnifiedTopology: true, 
 })
