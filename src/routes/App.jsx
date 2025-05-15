@@ -8,20 +8,20 @@ import Projects from '../views/Projects.jsx';
 import Education from '../views/Education.jsx';
 import Skills from '../views/Skills.jsx';
 import ContactInfo from '../views/ContactInfo.jsx';
+import Messages from '../views/Messages.jsx';
 
 export default function App() {
   return (
     <Router>
       <Navbar/>
-      <div className="mt-14">
         <Routes>
           <Route path="/" element={<AboutMe/>}/>
           <Route path="/projects" element={<Projects/>}/>
           <Route path="/education" element={<Education/>}/>
-          <Route path="/skills" element={<Skills/>} />
+          <Route path="/skills" element={<Skills/>}/>
           <Route path="/contact" element={<ContactInfo/>}/>
+          <Route path="/messages" element={<Messages/>}/>
         </Routes>
-      </div>
       <Footer/>
       <BackToTopButton/>
     </Router>

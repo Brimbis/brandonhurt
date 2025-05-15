@@ -17,9 +17,8 @@ export default function AboutMe() {
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">
       <div className="font-sans text-blue-100 flex flex-col items-center max-w-4xl w-full">
-        
 
-        <header className="bg-indigo-800 text-5xl mt-20 w-full text-center rounded-xl shadow-xl p-3 border border-indigo-700">
+        <header className="bg-indigo-800 text-5xl mt-30 w-full text-center rounded-xl shadow-xl p-3 border border-indigo-700">
           <Logo
             image='/images/profile/profile-image.jpeg'
             styling='profile'

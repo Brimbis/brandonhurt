@@ -15,8 +15,8 @@ export default function Education() {
 
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">
-      <div className="font-sans text-blue-100 flex flex-col items-center max-w-5xl w-full py-10">
-        <h2 className="text-4xl font-bold mb-10">Education</h2>
+      <div className="font-sans text-blue-100 flex flex-col items-center max-w-5xl w-full py-10 mt-20">
+        <h2 className="text-4xl font-bold mb-14">Education</h2>
 
         {education.map((education, index) => (
           <Card
@@ -26,7 +26,6 @@ export default function Education() {
             description={education.description}
             image={education.image}
             date={education.date}
-            progress={education.progress}
             institution={education.institution}
           />
         ))}

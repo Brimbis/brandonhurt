@@ -14,6 +14,7 @@ export default function Card({
   link, 
   progress, 
   institution, 
+  email, 
 }) {
 
   switch (type) {
@@ -22,9 +23,11 @@ export default function Card({
     case 'project':
       return projectCard({title, description, images, tech, link, date});
     case 'education':
-      return educationCard({title, description, image, date, progress, institution});
+      return educationCard({title, description, image, date, institution});
     case 'skill':
       return skillCard({image, link, tech, date});
+    case 'message':
+      return messageCard({title, email, description, date})
     default:
       return null;
   }
@@ -56,10 +59,6 @@ function profileCard({ title, image, description, birthDate }) {
       <h2 className="text-4xl font-bold mb-10 text-center text-indigo-100">
         {title || "About Me"}
       </h2>
-
-      {image && (
-        <Logo image={image} styling="image-small" />
-      )}
 
       {birthDate && (
         <p className="text-xl text-center mb-8 text-indigo-300">
@@ -170,13 +169,7 @@ function projectCard({title, description, images, tech, link, date}) {
 
 // -- Education Card Layout --
 
-function educationCard({title, description, image, date, progress, institution}) {
-  const radius = 36;
-  const stroke = 6;
-  const normalizedRadius = radius - stroke * 0.5;
-  const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset = circumference * (1 - progress);
-
+function educationCard({title, description, image, date, institution}) {
   return (
     <div className="relative bg-indigo-800/60 backdrop-blur-md rounded-2xl shadow-2xl p-8 mb-10 flex flex-col items-center text-center transition-transform hover:scale-105 max-w-3xl mx-auto">
 
@@ -193,44 +186,6 @@ function educationCard({title, description, image, date, progress, institution})
       <h3 className="text-xl font-bold text-indigo-200 mb-2">{institution}</h3>
 
       <p className="text-indigo-300 text-base mb-4 px-2 leading-relaxed">{description}</p>
-
-      {typeof progress === 'number' && progress >= 0 && progress <= 1 && (
-        <div className="hidden md:block">
-          <div className="absolute top-4 left-4 w-20 h-20">
-            <svg
-              height="100%"
-              width="100%"
-              viewBox={`0 0 ${radius * 2} ${radius * 2}`}
-            >
-              <circle
-                stroke="#4c51bf"
-                fill="transparent"
-                strokeWidth={stroke}
-                r={normalizedRadius}
-                cx={radius}
-                cy={radius}
-              />
-              <circle
-                stroke="#a3bffa"
-                fill="transparent"
-                strokeWidth={stroke}
-                strokeLinecap="round"
-                strokeDasharray={`${circumference} ${circumference}`}
-                style={{
-                  strokeDashoffset,
-                  transition: 'stroke-dashoffset 0.5s',
-                }}
-                r={normalizedRadius}
-                cx={radius}
-                cy={radius}
-              />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center text-indigo-100 text-s font-semibold">
-              {Math.round(progress * 100)}%
-            </div>
-          </div>
-        </div>
-      )}
 
       {date && (
         <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-indigo-400 italic">{new Date(date).toLocaleDateString()}</p>
@@ -251,6 +206,21 @@ function skillCard({image, link, tech, date}) {
       />
       <h2 className="text-2xl font-semibold text-blue-100 mb-2">{tech}</h2>
       <p className="text-blue-300 text-sm">{new Date(date).toLocaleDateString()}</p>
+    </div>
+  );
+}
+
+// -- Messsage Card Layout --
+
+function messageCard({title, email, description, date}) {
+  return (
+    <div className="relative bg-indigo-800/60 backdrop-blur-md rounded-2xl shadow-2xl p-8 mb-10 flex flex-col items-center text-center transition-transform hover:scale-105 max-w-3xl mx-auto">
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="text-2xl font-semibold">{title}</h3>
+      </div>
+      <p className="text-lg text-blue-200 mb-1">{email}</p>
+      <p className="text-indigo-300 text-base mb-4 px-2 leading-relaxed">{description}</p>
+      <p className="text-sm text-indigo-400">{new Date(date).toLocaleString()}</p>
     </div>
   );
 }

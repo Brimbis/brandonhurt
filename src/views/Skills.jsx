@@ -15,8 +15,8 @@ export default function Skills() {
 
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">
-      <div className="font-sans text-blue-100 flex flex-col items-center max-w-5xl w-full py-10">
-        <h2 className="text-4xl font-bold mb-10">Skills</h2>
+      <div className="font-sans text-blue-100 flex flex-col items-center max-w-5xl w-full py-10 mt-20">
+        <h2 className="text-4xl font-bold mb-14">Skills & Tech</h2>
 
         <div className="flex flex-wrap justify-center gap-8">
         {skills.map((skill, index) => (

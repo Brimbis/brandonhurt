@@ -25,7 +25,7 @@ export default function ContactInfo() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('/api/messages', formData)
+    axios.post('/api/send-message', formData)
     .then(() => {
       setFormData({name: "", email: "", message: ""});
       setSubmitted(true);
@@ -39,7 +39,7 @@ export default function ContactInfo() {
 
   return (
     <div className="min-h-screen w-full bg-gray-800 flex justify-center px-4">
-      <div className="font-sans text-blue-100 flex flex-col items-center max-w-5xl w-full py-10">
+      <div className="font-sans text-blue-100 flex flex-col items-center max-w-5xl w-full py-10 mt-20">
         <h2 className="text-4xl font-bold mb-6">Contact Me!</h2>
         <p className="text-lg text-center mb-8 max-w-2xl">
           {info.contactInfo?.message}
