@@ -1,16 +1,9 @@
 import { NavLink } from "react-router-dom";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const navstyling = 'bg-indigo-700 text-white font-semibold px-4 py-2 rounded-md transition flex flex-col items-center space-y-1';
   const navstylingHover = 'hover:bg-gray-800 px-4 py-2 rounded-md transition flex flex-col items-center space-y-1';
-
-  const emojiSpan = (code) => (
-    <span
-      className="text-white text-xl"
-      aria-hidden="true"
-      dangerouslySetInnerHTML={{ __html: code }}
-    />
-  );
 
   return (
     <nav className="bg-gray-900 text-white fixed top-0 w-full z-50 shadow-md">
@@ -23,7 +16,10 @@ export default function Navbar() {
               title="About Me"
               className={({ isActive }) => isActive ? navstyling : navstylingHover}
             >
-              {emojiSpan("&#128100;")}
+              <Logo 
+                styling='navbar'
+                image='/images/navbar/person.png'
+              />
               <span className="text-sm hidden md:block">About Me</span>
             </NavLink>
           </li>
@@ -33,7 +29,10 @@ export default function Navbar() {
               title="Projects"
               className={({ isActive }) => isActive ? navstyling : navstylingHover}
             >
-              {emojiSpan("&#128187;")}
+              <Logo 
+                styling='navbar'
+                image='/images/navbar/desktop.png'
+              />
               <span className="text-sm hidden md:block">Projects</span>
             </NavLink>
           </li>
@@ -43,7 +42,10 @@ export default function Navbar() {
               title="Education"
               className={({ isActive }) => isActive ? navstyling : navstylingHover}
             >
-              {emojiSpan("&#127891;")}
+              <Logo 
+                styling='navbar'
+                image='/images/navbar/gradhat.png'
+              />
               <span className="text-sm hidden md:block">Education</span>
             </NavLink>
           </li>
@@ -53,7 +55,10 @@ export default function Navbar() {
               title="Skills & Tech"
               className={({ isActive }) => isActive ? navstyling : navstylingHover}
             >
-              {emojiSpan("&#128736;&#65039;")}
+              <Logo 
+                styling='navbar'
+                image='/images/navbar/wrenches.png'
+              />
               <span className="text-sm hidden md:block">Skills & Tech</span>
             </NavLink>
           </li>
@@ -63,7 +68,10 @@ export default function Navbar() {
               title="Contact Info"
               className={({ isActive }) => isActive ? navstyling : navstylingHover}
             >
-              {emojiSpan("&#128222;")}
+              <Logo 
+                styling='navbar'
+                image='/images/navbar/airplane.png'
+              />
               <span className="text-sm hidden md:block">Contact Info</span>
             </NavLink>
           </li>

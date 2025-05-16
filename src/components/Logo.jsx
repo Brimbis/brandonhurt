@@ -15,7 +15,10 @@ export default function Logo({link, image, styling, message}) {
     case 'profile':
       styling = 'h-40 w-40 object-cover rounded-full mx-auto shadow-lg hover:scale-105 transition-transform duration-300';
       break;
-    default: 
+    case 'navbar':
+      styling = 'h-8 w-8 object-contain filter brightness-0 invert contrast-200';
+      break;
+    default:
       styling = '';
   }
 
